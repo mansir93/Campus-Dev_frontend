@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './Login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,9 +24,9 @@ const Login = () => {
       <div className="container mx-auto flex justify-center items-center p-8">
         <form onSubmit={handleSubmit}>
           <div>
-            <h1>sign up for campus dev</h1>
+            <h1>Sign Up for Campus Dev</h1>
             <div>
-              <h3>username</h3>
+              <h3>Username</h3>
               <input
                 type="text"
                 onChange={(e) =>
@@ -35,7 +36,7 @@ const Login = () => {
             </div>
 
             <div>
-              <h3>email</h3>
+              <h3>Email</h3>
               <input
                 type="email"
                 onChange={(e) =>
@@ -45,7 +46,7 @@ const Login = () => {
             </div>
 
             <div>
-              <h3>phonenumber</h3>
+              <h3>Phone Number</h3>
               <input
                 type="number"
                 onChange={(e) =>
@@ -55,7 +56,7 @@ const Login = () => {
             </div>
 
             <div>
-              <h3>password</h3>
+              <h3>Password</h3>
               <input
                 type="password"
                 onChange={(e) =>
@@ -64,7 +65,7 @@ const Login = () => {
               />
             </div>
             <div>
-              <button type="submit">sign up</button>
+              <button type="submit" id="submit-btn">Create Account</button>
             </div>
           </div>
         </form>

@@ -1,52 +1,62 @@
 form {
-  background-color: #fff;
-  padding: 0 3em;
-  border-radius: 10px;
-  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.25);
+  background-color: #e3e5e9;
+  padding: 15px 65px;
+  box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.25);
+  width: 500px;
+  box-sizing: border-box;
+}
+
+form div {
+  margin: 3px;
+  padding: 2px;
 }
 
 form h1 {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 600;
   line-height: 2;
-  padding-top: 1em;
-  color: #42a5f5;
+  color: #63666e;
 }
 
 form h3 {
   font-size: 1em;
-  color: #666;
-  line-height: 1.5;
-  margin-top: 1.5em;
+  color: #707174;
+  line-height: 2;
+  font-size: 0.85em;
+  font-weight: 600;
 }
 
-form input {
-  border: 1px solid #ccc;
-  border-radius: 5px;
+form input.input-field {
+  border: 1px solid #707174;
+  border-radius: 7px;
   width: 100%;
-  font-size: 1em;
-  padding: 5px;
-  color: #333;
+  padding: 7px;
+  font-size: 1.2rem;
+  color: #707174;
+  background: transparent;
+  outline: none;
 }
 
-form input:focus {
-  outline: 2px solid #42a5f5;
+form input.input-field:focus {
+  border: 1px solid #395898;
+  box-shadow: 0 0 1px 0px rgba(33, 150, 243, 0.5);
 }
 
 #submit-btn {
-  background-color: #42a5f5;
+  background-color: #395898;
   display: block;
   width: 100%;
   margin: 1em auto 2em;
-  padding: 5px 45px;
+  padding: 7px 45px;
   border-radius: 5px;
   color: #fff;
-  box-shadow: 0.5px 0.5px 2px 0.5px #2b689b;
-  font-size: 1.15em;
+  box-shadow: 0.5px 0.5px 1px 0.5px #2b689b;
+  font-size: 1.2rem;
   text-transform: capitalize;
+  font-weight: 600;
 }
 
 #submit-btn:hover {
-  box-shadow: 0 0 2.5px 1px #2b689b;
+  box-shadow: 0 0 2px 0.7px #2b689b;
   transition: 0.5s ease-in-out;
 }

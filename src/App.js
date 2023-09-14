@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from './Components/Navbar'
-import Login from "./Pages/Login";
+import Login from "./Pages/Login/Login";
 
 function App() {
   // const person = process.env.REACT_APP_MY_NAME || "Aziz";

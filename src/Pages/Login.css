@@ -30,7 +30,7 @@ form input {
 }
 
 form input:focus {
-  outline: 1px solid #42a5f5;
+  outline: 2px solid #42a5f5;
 }
 
 #submit-btn {

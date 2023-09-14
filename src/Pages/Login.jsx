@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './Login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,10 +24,10 @@ const Login = () => {
       <div className="container mx-auto flex justify-center items-center p-8">
         <form onSubmit={handleSubmit}>
           <div>
-            <h1>sign up for campus dev</h1>
+            <h1>Sign Up</h1>
             <div>
-              <h3>username</h3>
-              <input
+              <h3>Username</h3>
+              <input class="input-field"
                 type="text"
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
@@ -35,8 +36,8 @@ const Login = () => {
             </div>
 
             <div>
-              <h3>email</h3>
-              <input
+              <h3>Email</h3>
+              <input class="input-field"
                 type="email"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -45,8 +46,8 @@ const Login = () => {
             </div>
 
             <div>
-              <h3>phonenumber</h3>
-              <input
+              <h3>Phone Number</h3>
+              <input class="input-field"
                 type="number"
                 onChange={(e) =>
                   setFormData({ ...formData, phonenumber: e.target.value })
@@ -55,8 +56,8 @@ const Login = () => {
             </div>
 
             <div>
-              <h3>password</h3>
-              <input
+              <h3>Password</h3>
+              <input class="input-field"
                 type="password"
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
@@ -64,7 +65,7 @@ const Login = () => {
               />
             </div>
             <div>
-              <button type="submit">sign up</button>
+              <button type="submit" id="submit-btn">Sign Up</button>
             </div>
           </div>
         </form>

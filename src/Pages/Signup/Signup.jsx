@@ -21,7 +21,7 @@ const Signup = () => {
 
   return (
     <div className="mt-20 h-fit lg:h-screen bg-blue-400">
-      <div className="container mx-auto flex justify-center items-center p-8">
+      <div className="container mx-auto flex justify-center items-center p-8 form-container">
         <form onSubmit={handleSubmit}>
           <div>
             <h1>Sign Up</h1>
@@ -65,7 +65,7 @@ const Signup = () => {
               />
             </div>
             <div>
-              <button type="submit" id="submit-btn">Sign Up</button>
+              <button type="submit" className="mb-2 block rounded px-12 pt-4 pb-3.5 text-md font-bold capitalize leading-normal text-white shadow-lg transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lgs md:mb-0 submit-btn">Sign Up</button>
             </div>
           </div>
         </form>

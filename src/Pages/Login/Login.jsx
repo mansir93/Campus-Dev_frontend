@@ -20,11 +20,11 @@ const Login = () => {
   };
 
   return (
-    <div className="mt-20 h-fit lg:h-screen bg-blue-400">
+    <div className="mt-20 h-fit lg:h-screen bg-blue-400" id="form-wrapper">
       <div className="container mx-auto flex justify-center items-center p-8">
         <form onSubmit={handleSubmit}>
           <div>
-            <h1>Login</h1>
+            <h1>Log In</h1>
             <div>
               <h3>Username or Email</h3>
               <input
@@ -47,8 +47,8 @@ const Login = () => {
               />
             </div>
             <div>
-              <button type="submit" id="submit-btn">
-                Sign Up
+              <button type="submit" className="mb-2 block rounded bg-neutral px-12 pt-4 pb-3.5 text-md font-medium capitalize leading-normal text-white shadow-lg transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lgs md:mr-2 md:mb-0 submit-btn">
+                Sign In
               </button>
             </div>
           </div>

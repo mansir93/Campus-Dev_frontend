@@ -1,62 +1,106 @@
-form {
-  background-color: #e3e5e9;
-  padding: 15px 65px;
-  box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.25);
-  width: 500px;
-  box-sizing: border-box;
+/* MOBILE STATE VIEW */
+@media screen and (max-width: 640px) {
+  .form-container {
+    background-color: #e3e5e9;
+    max-width: 640px;
+    min-height: calc(100vh - 80px);
+    top: 0;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  form div {
+    padding: 5px;
+  }
+
+  form h1 {
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 2;
+    color: #63666e;
+  }
+
+  form h3 {
+    font-size: 0.85em;
+    font-weight: 600;
+    line-height: 2;
+    color: #63666e;
+  }
+
+  .input-field {
+    width: 100%;
+    border-radius: 7px;
+    border: 1px solid #63666e;
+    background: transparent;
+    padding: 6px;
+    font-size: 1.2em;
+    outline: 0px;
+  }
+
+  .input-field:focus {
+    border: 1px solid #395898;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: #395898 !important;
+    margin-top: 0.5em;
+  }
 }
 
-form div {
-  margin: 3px;
-  padding: 2px;
-}
+/* DESKTOP STATE VIEW */
 
-form h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  line-height: 2;
-  color: #63666e;
-}
+@media screen and (min-width: 640px) {
+  .form-container {
+    max-width: 500px;
+  }
 
-form h3 {
-  font-size: 1em;
-  color: #707174;
-  line-height: 2;
-  font-size: 0.85em;
-  font-weight: 600;
-}
+  .form-container form {
+    width: 500px;
+    background: #e3e5e9;
+    padding: 2em 5em;
+  }
 
-form input.input-field {
-  border: 1px solid #707174;
-  border-radius: 7px;
-  width: 100%;
-  padding: 7px;
-  font-size: 1.2rem;
-  color: #707174;
-  background: transparent;
-  outline: none;
-}
+  .form-container form div {
+    margin: 0.5em auto;
+  }
 
-form input.input-field:focus {
-  border: 1px solid #395898;
-  box-shadow: 0 0 1px 0px rgba(33, 150, 243, 0.5);
-}
+  .form-container form h1 {
+    font-size: 2.5em;
+    font-weight: 600;
+    color: #63666e;
+    margin-bottom: 0.5em;
+  }
 
-#submit-btn {
-  background-color: #395898;
-  display: block;
-  width: 100%;
-  margin: 1em auto 2em;
-  padding: 7px 45px;
-  border-radius: 5px;
-  color: #fff;
-  box-shadow: 0.5px 0.5px 1px 0.5px #2b689b;
-  font-size: 1.2rem;
-  text-transform: capitalize;
-  font-weight: 600;
-}
+  .form-container form h3 {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #63666e;
+    line-height: 2;
+  }
 
-#submit-btn:hover {
-  box-shadow: 0 0 2px 0.7px #2b689b;
-  transition: 0.5s ease-in-out;
+  .form-container form .input-field {
+    width: 100%;
+    border-radius: 7px;
+    background: transparent;
+    font-size: 1.2em;
+    padding: 7px;
+  }
+
+  .form-container form .input-field:focus {
+    border: 1px solid #395898;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: #395898 !important;
+    margin-top: 1em;
+  }
 }
+/* Colours used on page */
+/* #63666e - gray colour */
+/* #e3e5e9 - dimmed white colour */
+/* #395898 - dark blue colour */

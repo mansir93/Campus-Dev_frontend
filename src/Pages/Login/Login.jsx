@@ -20,8 +20,8 @@ const Login = () => {
   };
 
   return (
-    <div className="mt-20 h-fit lg:h-screen bg-blue-400" id="form-wrapper">
-      <div className="container mx-auto flex justify-center items-center p-8">
+    <div className="mt-20 h-fit lg:h-screen bg-blue-400">
+      <div className="container mx-auto flex justify-center items-center p-8 form-container">
         <form onSubmit={handleSubmit}>
           <div>
             <h1>Log In</h1>

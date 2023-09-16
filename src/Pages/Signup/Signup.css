@@ -87,6 +87,7 @@
     background: transparent;
     font-size: 1.2em;
     padding: 7px;
+    color: #63666e;
   }
 
   .form-container form .input-field:focus {

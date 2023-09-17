@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -84,7 +85,7 @@ const Login = () => {
                     </div>
                     <div class="mb-6 flex justify-between items-center">
                       <span>
-                        <input type="checkbox" /> Remember me{" "}
+                        <Checkbox label="Remember me" />
                       </span>
                       <p>forgotten password?</p>
                     </div>
@@ -97,6 +98,14 @@ const Login = () => {
                   >
                     Login
                   </Button>
+                  <div class="py-6">
+                    <p>
+                      Not registered yet?{" "}
+                      <Link to="/signup" className="text-blue-500">
+                        Create and Account
+                      </Link>
+                    </p>
+                  </div>
                 </form>
               </Card>
             </div>

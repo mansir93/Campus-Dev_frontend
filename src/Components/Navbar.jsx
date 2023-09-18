@@ -5,7 +5,7 @@ import { FaBars, FaHome } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 
 import {
-  MobileNav,
+  Collapse,
   Typography,
   Button,
   IconButton,
@@ -62,14 +62,14 @@ const Navbar= () => {
             {openNav ? <GrClose size={24} className="text-blue-500" /> : <FaBars size={24}  className="text-blue-500"/>}
           </IconButton>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           <div className="container mx-auto">
             {navList}
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
             <span>Account</span>
             </Button>
           </div>
-        </MobileNav>
+        </Collapse>
       </div>
     </div>
   );

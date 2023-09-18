@@ -1,76 +1,177 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './Signup.css';
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import TopLoadingBar from "../../Components/TopLoadingBar";
+
+import { Card, Checkbox, Button, Typography } from "@material-tailwind/react";
+
+import "./Signup.css";
 
 const Signup = () => {
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [formData, setFormData] = useState({
-    username: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    phonenumber: "",
     password: "",
   });
   console.log(formData);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setProgress(0);
+    for (let i = 0; i <= 98; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 20));
+      setProgress(i); // Update the progress
+    }
 
     axios
       .post(`${process.env.REACT_APP_BASEURL}/auth/register`, formData)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log(res);
+        Swal.fire("Sign Up", `Sign Up successful`, "success");
+      })
+      .catch((err) => {
+        Swal.fire("error", `Sign In Failed ${err.response.data}`, "error");
+        console.log(err);
+      });
   };
 
   return (
-    <div className="mt-20 h-fit lg:h-screen bg-blue-400">
-      <div className="container mx-auto flex justify-center items-center p-8 form-container">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <h1>Sign Up</h1>
-            <div>
-              <h3>Username</h3>
-              <input class="input-field"
-                type="text"
-                onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
-                }
-              />
-            </div>
+    <>
+      <TopLoadingBar loading={loading} progress={progress} />
 
-            <div>
-              <h3>Email</h3>
-              <input class="input-field"
-                type="email"
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-              />
-            </div>
+      <section className="mt-24 lg:m-auto gradient-form h-screen w-full">
+        <div className="flex h-full items-center justify-center ">
+          <div className="flex flex-col bg-transparent border border-gray-200 rounded-lg shadow md:flex-row  bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div className="mb-4">
+              <div className="flex justify-start items-start p-6">
+                <h3 className="font-bold text-gray-700 text-xl">Campus Dev</h3>
+              </div>
+              <Card
+                color="transparent"
+                shadow={false}
+                className="px-16 py-4 text-center"
+              >
+                <div className="flex flex-col justify-start items-start">
+                  <Typography variant="h4" color="blue-gray">
+                    Sign Up
+                  </Typography>
+                  <Typography color="gray" className="mt-1 font-normal">
+                    Create An Account.
+                  </Typography>
+                </div>
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+                >
+                  <div className="mb-4 flex flex-col">
+                    <div className="mb-4">
+                      <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        FirstName
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            firstname: e.target.value,
+                          })
+                        }
+                        required
+                        placeholder="Kofi.."
+                        className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        LastName
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            lastname: e.target.value,
+                          })
+                        }
+                        required
+                        placeholder="kwaku.."
+                        className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            email: e.target.value,
+                          })
+                        }
+                        required
+                        placeholder="john@example.com"
+                        className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Password
+                      </label>
+                      <input
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            password: e.target.value,
+                          })
+                        }
+                        type="password"
+                        required
+                        placeholder="  ********* "
+                        className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
 
-            <div>
-              <h3>Phone Number</h3>
-              <input class="input-field"
-                type="number"
-                onChange={(e) =>
-                  setFormData({ ...formData, phonenumber: e.target.value })
-                }
-              />
+                  <Button
+                    type="submit"
+                    className="mt-4 w-full text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full"
+                    fullWidth
+                  >
+                    Sign up
+                  </Button>
+                  <div className="py-6">
+                    <div className="flex gap-3">
+                      <p>Already registered? </p>
+                      <Link to="/login" className="text-blue-500">
+                        Login{" "}
+                      </Link>
+                    </div>
+                  </div>
+                </form>
+              </Card>
             </div>
-
-            <div>
-              <h3>Password</h3>
-              <input class="input-field"
-                type="password"
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <button type="submit" className="mb-2 block rounded px-12 pt-4 pb-3.5 text-md font-bold capitalize leading-normal text-white shadow-lg transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lgs md:mb-0 submit-btn">Sign Up</button>
+            <div className="lg:w-1/2  flex flex-col justify-center p-4 leading-normal bg-blue-500">
+              {/* <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5> */}
+              {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                Access a suite of powerful
+                <br /> student tools, including study
+                <br />
+                resources, productivity apps,
+                <br /> and tutoring services, designed
+                <br />
+                to enhance your academic success.{" "}
+              </p> */}
             </div>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -1,36 +1,50 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
-import "./Login.css";
+import Swal from "sweetalert2";
+
+import { Card, Checkbox, Button, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import TopLoadingBar from "../../Components/TopLoadingBar";
+import "./Login.css";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
-    phonenumber: "",
     password: "",
   });
-  console.log(formData);
-  const handleSubmit = (e) => {
+  // console.log(formData);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setProgress(0);
+    for (let i = 0; i <= 98; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 20));
+      setProgress(i); // Update the progress
+    }
 
     axios
-      .post(`${process.env.REACT_APP_BASEURL}/auth/register`, formData)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .post(`${process.env.REACT_APP_BASEURL}/auth/login`, formData)
+
+      .then((res) => {
+        console.log(res);
+        setLoading(false);
+        Swal.fire("SignIn", `Signin successful`, "success");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        Swal.fire("error", `Sign In Failed ${err.response.data}`, "error");
+      });
   };
 
   return (
     <>
+      <TopLoadingBar loading={loading} progress={progress} />
       <section className="mt-20 lg:m-auto gradient-form h-screen w-full">
-        <div className="flex h-full items-center justify-center ">
+        <div className="flex h-full items-center justify-center p-6 ">
           <div className="flex flex-col bg-transparent border border-gray-200 rounded-lg shadow md:flex-row  bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div className="mb-12">
               <div className="flex justify-start items-start p-8">
@@ -49,25 +63,29 @@ const Login = () => {
                     Into Your student Hub.
                   </Typography>
                 </div>
-                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+                >
                   <div className="mb-4 flex flex-col">
-                    <div class="mb-6">
+                    <div className="mb-6">
                       <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Email
                       </label>
                       <input
-                        type="text"
+                        type="email"
                         onChange={(e) =>
                           setFormData({
                             ...formData,
-                            username: e.target.value,
+                            email: e.target.value,
                           })
                         }
+                        required
                         placeholder="john@example.com"
                         className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                     </div>
-                    <div class="mb-6">
+                    <div className="mb-6">
                       <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Password
                       </label>
@@ -79,11 +97,12 @@ const Login = () => {
                           })
                         }
                         type="password"
-                        placeholder="******"
+                        required
+                        placeholder="  ********* "
                         className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                     </div>
-                    <div class="mb-6 flex justify-between items-center">
+                    <div className="mb-6 flex justify-between items-center">
                       <span>
                         <Checkbox label="Remember me" />
                       </span>
@@ -92,19 +111,19 @@ const Login = () => {
                   </div>
 
                   <Button
+                  type="submit"
                     className="mt-6 w-full text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full"
                     fullWidth
-                    onClick={handleSubmit}
                   >
                     Login
                   </Button>
-                  <div class="py-6">
-                    <p>
-                      Not registered yet?{" "}
+                  <div className="py-6">
+                    <div className="flex gap-3">
+                      <p>Not registered yet? </p>
                       <Link to="/signup" className="text-blue-500">
                         Create and Account
                       </Link>
-                    </p>
+                    </div>
                   </div>
                 </form>
               </Card>
@@ -125,6 +144,7 @@ const Login = () => {
           </div>
         </div>
       </section>
+      {/* )} */}
     </>
   );
 };

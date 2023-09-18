@@ -1,3 +1,6 @@
+import { AiFillMessage } from "react-icons/ai";
+import { FaUsers } from "react-icons/fa";
+import { AiTwotoneHome } from "react-icons/ai";
 import React, { useState, useEffect } from "react";
 
 import { CgMoreAlt } from "react-icons/cg";
@@ -40,18 +43,18 @@ function Layout() {
             <h1 className="text-2xl font-semibold">
               <Link to="/">Campus Dev</Link>
             </h1>
-            <div className="hidden md:flex lg:flex space-x-4">
+            <div className="hidden md:flex lg:flex items-center justify-between gap-16 space-x-4">
               <Link to="/home" className="hover:text-gray-300">
-                Home
+                <AiTwotoneHome size={34} />
               </Link>
               <Link to="/home" className="hover:text-gray-300">
-                Friends
+                <FaUsers size={34} />
               </Link>
               <Link to="/home" className="hover:text-gray-300">
-                Messages
+                <AiFillMessage size={34} />
               </Link>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               <CgProfile size={26} />
               <BiMessageDots size={26} />
               <CgMoreAlt size={26} />

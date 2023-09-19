@@ -33,12 +33,12 @@ const Signup = () => {
       .then((res) => {
         console.log(res);
         setLoading(false);
-        Swal.fire("Sign Up", `Sign Up successful`, "success");
+        Swal.fire("Sign Up", `Sign up successful`, "success");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        Swal.fire("error", `Sign In Failed ${err.response.data}`, "error");
+        Swal.fire("error", `Sign up Failed ${err.response.data}`, "error");
       });
   };
 

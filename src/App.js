@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Routes } from "react-router";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
@@ -7,7 +8,6 @@ import Profile from "./Pages/Profile";
 import "./App.css";
 import Layout from "./Pages/Layout/Layout";
 function App() {
-  // const person = process.env.REACT_APP_MY_NAME || "Aziz";
   return (
     <div>
       {/* <Navbar /> */}

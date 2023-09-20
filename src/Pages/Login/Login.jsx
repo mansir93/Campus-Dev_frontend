@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setProgress(0);
-    for (let i = 0; i <= 98; i++) {
+    for (let i = 0; i <= 99; i++) {
       await new Promise((resolve) => setTimeout(resolve, 20));
       setProgress(i); // Update the progress
     }

@@ -10,7 +10,7 @@ const config = {
 };
 
 export const postApi = {
-  createPost: (postData) => {
+  createPost: (postData, config) => {
     return axios.post(
       `${process.env.REACT_APP_BASEURL}/post/create`,
       postData,
@@ -70,3 +70,5 @@ export const postApi = {
     );
   },
 };
+
+export default postApi;

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { Card, Checkbox, Button, Typography } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +6,7 @@ import TopLoadingBar from "../../Components/TopLoadingBar";
 import Layout from "../../Container/Layout";
 import { useSignIn } from "react-auth-kit";
 import "./Login.css";
+import AuthApi from "../../Services/authRoutes";
 
 const Login = () => {
   const signIn = useSignIn();
@@ -23,27 +23,28 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setProgress(0);
-    for (let i = 0; i <= 99; i++) {
+    for (let i = 0; i <= 98; i++) {
       await new Promise((resolve) => setTimeout(resolve, 20));
-      setProgress(i); // Update the progress
+      setProgress(i);
     }
 
-    axios
-      .post(`${process.env.REACT_APP_BASEURL}/auth/login`, formData)
+    AuthApi.login(formData)
       .then((res) => {
         console.log(res);
         signIn({
           token: res.data.token,
           user: res.data,
-          expiresIn: 3600,
+          expiresIn: 31536000,
           tokenType: "Bearer",
           authState: res.data.is_active,
         });
-        navigate("/home")
+        navigate("/home");
+        setProgress(100);
         setLoading(false);
         Swal.fire("SignIn", `Signin successful`, "success");
       })
       .catch((err) => {
+        setProgress(100);
         setLoading(false);
         console.log(err);
         Swal.fire("error", `Sign In Failed ${err.response.data}`, "error");

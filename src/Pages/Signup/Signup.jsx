@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import TopLoadingBar from "../../Components/TopLoadingBar";
@@ -8,6 +7,7 @@ import { Card, Button, Typography } from "@material-tailwind/react";
 
 import "./Signup.css";
 import Layout from "../../Container/Layout";
+import AuthApi from "../../Services/authRoutes";
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -28,8 +28,7 @@ const Signup = () => {
       setProgress(i); // Update the progress
     }
 
-    axios
-      .post(`${process.env.REACT_APP_BASEURL}/auth/register`, formData)
+    AuthApi.register(formData)
       .then((res) => {
         console.log(res);
         setLoading(false);

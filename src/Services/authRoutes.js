@@ -1,9 +1,9 @@
 import axios from "axios";
 
 // auth routes
-export const authApi = {
+ const authApi = {
   register: (postData) => {
-    return axios.get(
+    return axios.post(
       `${process.env.REACT_APP_BASEURL}/auth/register`,
       postData
     );
@@ -12,3 +12,6 @@ export const authApi = {
     return axios.post(`${process.env.REACT_APP_BASEURL}/auth/login`, postData);
   },
 };
+
+export default authApi;
+

@@ -7,6 +7,7 @@ import Layout from "../../Container/Layout";
 import { useSignIn } from "react-auth-kit";
 import "./Login.css";
 import AuthApi from "../../Services/authRoutes";
+import LoginImg from "../../Assets/loginImg.jpg";
 
 const Login = () => {
   const signIn = useSignIn();
@@ -57,7 +58,7 @@ const Login = () => {
         <TopLoadingBar loading={loading} progress={progress} />
         <section className="mt-20 lg:m-auto gradient-form h-screen w-full">
           <div className="flex h-full items-center justify-center p-6 ">
-            <div className="flex flex-col bg-transparent border border-gray-200 rounded-lg shadow md:flex-row  bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div className="flex flex-col  bg-transparent border border-gray-200 rounded-lg shadow md:flex-row  bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
               <div className="mb-12">
                 <div className="flex justify-start items-start p-8">
                   <h3 className="font-bold text-gray-700 text-xl">
@@ -143,7 +144,7 @@ const Login = () => {
                 </Card>
               </div>
 
-              <div className="lg:w-1/2  flex flex-col justify-center p-4 leading-normal bg-blue-500">
+              <div className="lg:w-1/2 max-h-96  flex flex-col justify-center p-4 leading-normal bg-blue-500">
                 {/* <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5> */}
                 {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                 Access a suite of powerful
@@ -154,6 +155,7 @@ const Login = () => {
                 <br />
                 to enhance your academic success.{" "}
               </p> */}
+                {/* <img src={LoginImg} alt="" className="h-[600px]"/> */}
               </div>
             </div>
           </div>

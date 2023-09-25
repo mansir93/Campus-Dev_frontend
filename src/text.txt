@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useAxios } from "../Services/ApiHook";
-
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { useAxios } from "../Services/ApiHook.js";
+import TopLoadingBar from "./TopLoadingBar";
 import {
   Button,
   Dialog,
@@ -9,56 +11,82 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-const CreatePostCard = () => {
-  const { data, error, isLoading, ApiRequest } = useAxios();
 
+// const { useAxios } = "../Services/ApiHook.js";
+
+const CreatePostCard = () => {
+  const navigate = useNavigate();
+  const { res, error, isLoading, axiosRequest } = useAxios();
+
+  const initialState = {
+    title: "",
+    media: [],
+  };
+  const [post, setPost] = useState(initialState);
   const [openAdd, setOpenAdd] = useState(false);
-  const [media, setmedia] = useState([]);
-  const [title, setTitle] = useState("");
   const [dragging, setDragging] = useState(false);
 
   const handleDrop = (e) => {
     e.preventDefault();
-    const newmedia = [...media];
+    const newmedia = [...post.media];
     for (let i = 0; i < e.dataTransfer.files.length; i++) {
       newmedia.push(e.dataTransfer.files[i]);
     }
-    setmedia(newmedia);
+    setPost({ ...post, media: newmedia });
     setDragging(false);
   };
 
   const handleFileInputChange = (e) => {
-    const newmedia = [...media];
+    const newmedia = [...post.media];
     for (let i = 0; i < e.target.files.length; i++) {
       newmedia.push(e.target.files[i]);
     }
-    setmedia(newmedia);
+    setPost({ ...post, media: newmedia });
   };
 
   const handleDelete = (index) => {
-    const newmedia = [...media];
+    const newmedia = [...post.media];
     newmedia.splice(index, 1);
-    setmedia(newmedia);
+    setPost({ ...post, media: newmedia });
   };
-
-  const handleSubmit = async (e) => {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    for (let i = 0; i < media.length; i++) {
-      formData.append("media", media[i]);
-    }
-    ApiRequest("/post/create", "POST", formData);
-  };
+    console.log(post);
 
-  useEffect(() => {
-    if (data) {
+    const formData = new FormData();
+    formData.append("title", post.title);
+    for (let i = 0; i < post.media.length; i++) {
+      formData.append("media", post.media[i]);
+    }
+
+    for (let i = 0; i <= 98; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    }
+
+    const { res, error, isLoading } = axiosRequest(
+      "/post/create",
+      "POST",
+      formData
+    );
+    if (res) {
+      console.log(res);
+      navigate("/home");
       setOpenAdd(false);
+      Swal.fire("Post", `Post successful`, "success");
+    }
+    if (isLoading) {
+      return <div>"loading...." </div>;
     }
     if (error) {
+      console.log(error);
       setOpenAdd(false);
+      Swal.fire(
+        "error",
+        `Post creation Failed ${error.response.data}`,
+        "error"
+      );
     }
-  }, [data, error]);
+  };
   return (
     <>
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">
@@ -67,7 +95,7 @@ const CreatePostCard = () => {
 
           <input
             type="text"
-            value={title}
+            value={post.title}
             placeholder="What's on your mind?"
             className="flex-1 p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
             onClick={() => setOpenAdd(true)}
@@ -92,14 +120,13 @@ const CreatePostCard = () => {
         </div>
       </div>
       <Dialog size="xs" open={openAdd} handler={() => setOpenAdd(!openAdd)}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={HandleSubmit}>
           <DialogHeader>Create Post</DialogHeader>
           <DialogBody divider>
             <div>
               <textarea
-                // type="textarea"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
+                onChange={(e) => setPost({ ...post, title: e.target.value })}
+                value={post.title}
                 placeholder="What's on your mind?"
                 className="w-full h-32 text-black p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
                 onClick={() => setOpenAdd(true)}
@@ -133,7 +160,7 @@ const CreatePostCard = () => {
                   />
                 </label>
                 <div className="flex flex-wrap items-start justify-start">
-                  {media.map((image, index) => (
+                  {post.media.map((image, index) => (
                     <div
                       key={index}
                       className="mt-4 flex flex-col items-center"

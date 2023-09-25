@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import TopLoadingBar from "../../Components/TopLoadingBar";
 
 import { Card, Button, Typography } from "@material-tailwind/react";
 
 import "./Signup.css";
 import Layout from "../../Container/Layout";
-import AuthApi from "../../Services/authRoutes";
+import { useAxios } from "../../Services/ApiHook";
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { data, isLoading, ApiRequest } = useAxios();
   const [progress, setProgress] = useState(0);
   const [formData, setFormData] = useState({
     firstname: "",
@@ -18,33 +18,26 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setProgress(0);
     for (let i = 0; i <= 98; i++) {
       await new Promise((resolve) => setTimeout(resolve, 20));
-      setProgress(i); // Update the progress
+      setProgress(i);
     }
-
-    AuthApi.register(formData)
-      .then((res) => {
-        console.log(res);
-        setLoading(false);
-        Swal.fire("Sign Up", `Sign up successful`, "success");
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-        Swal.fire("error", `Sign up Failed ${err.response.data}`, "error");
-      });
+    ApiRequest("/auth/register", "POST", formData);
   };
+
+  useEffect(() => {
+    if (data) {
+      navigate("/login");
+    }
+  }, [data, navigate]);
 
   return (
     <>
       <Layout>
-        <TopLoadingBar loading={loading} progress={progress} />
+        <TopLoadingBar loading={isLoading} progress={progress} />
 
         <section className="mt-24 lg:m-auto gradient-form h-screen w-full">
           <div className="flex h-full items-center justify-center ">
@@ -137,7 +130,7 @@ const Signup = () => {
                           }
                           type="password"
                           required
-                          placeholder="  ********* "
+                          placeholder="********* "
                           className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                       </div>

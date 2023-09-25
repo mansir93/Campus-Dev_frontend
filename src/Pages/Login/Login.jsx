@@ -1,60 +1,42 @@
-import React, { useState } from "react";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react";
 import { Card, Checkbox, Button, Typography } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import TopLoadingBar from "../../Components/TopLoadingBar";
 import Layout from "../../Container/Layout";
-import { useSignIn } from "react-auth-kit";
 import "./Login.css";
-import AuthApi from "../../Services/authRoutes";
+import { saveToCookie } from "../../utils/Config";
+import { useAxios } from "../../Services/ApiHook";
 
 const Login = () => {
-  const signIn = useSignIn();
+  const { data, isLoading, ApiRequest } = useAxios();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  // console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setProgress(0);
     for (let i = 0; i <= 98; i++) {
       await new Promise((resolve) => setTimeout(resolve, 20));
       setProgress(i);
     }
-
-    AuthApi.login(formData)
-      .then((res) => {
-        console.log(res);
-        signIn({
-          token: res.data.token,
-          user: res.data,
-          expiresIn: 31536000,
-          tokenType: "Bearer",
-          authState: res.data.is_active,
-        });
-        navigate("/home");
-        setProgress(100);
-        setLoading(false);
-        Swal.fire("SignIn", `Signin successful`, "success");
-      })
-      .catch((err) => {
-        setProgress(100);
-        setLoading(false);
-        console.log(err);
-        Swal.fire("error", `Sign In Failed ${err.response.data}`, "error");
-      });
+    ApiRequest("/auth/login", "POST", formData);
   };
+  useEffect(() => {
+    if (data) {
+      saveToCookie("_auth", data.token, 365);
+      navigate("/home");
+      setProgress(100);
+    }
+  }, [data, navigate]);
 
   return (
     <>
       <Layout>
-        <TopLoadingBar loading={loading} progress={progress} />
+        <TopLoadingBar loading={isLoading} progress={progress} />
         <section className="mt-20 lg:m-auto gradient-form h-screen w-full">
           <div className="flex h-full items-center justify-center p-6 ">
             <div className="flex flex-col bg-transparent border border-gray-200 rounded-lg shadow md:flex-row  bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">

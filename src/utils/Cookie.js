@@ -21,3 +21,4 @@ export const removeCookie = (key) => {
   }
   document.cookie = cookieValue;
 };
+

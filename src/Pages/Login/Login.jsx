@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import TopLoadingBar from "../../Components/TopLoadingBar";
 import Layout from "../../Container/Layout";
 import "./Login.css";
-import { saveToCookie } from "../../utils/Config";
-import { useAxios } from "../../Services/ApiHook";
+import { saveToCookie } from "../../utils/Cookie";
+import { useAxios } from "../../utils/ApiHook";
 
 const Login = () => {
   const { data, isLoading, ApiRequest } = useAxios();

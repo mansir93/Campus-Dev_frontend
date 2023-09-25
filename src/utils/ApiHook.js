@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { getCookie } from "../utils/Config";
+import { getCookie } from "./Cookie";
 import Swal from "sweetalert2";
 
 export function useAxios() {
@@ -13,13 +13,14 @@ export function useAxios() {
     },
   };
 
+  const [method, setMethod] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const ApiRequest = async (path, method, body) => {
-    // console.log("after", ...body.entries());
     setIsLoading(true);
+    setMethod(method);
     const url = `${process.env.REACT_APP_BASEURL}${path}`;
 
     try {
@@ -42,16 +43,20 @@ export function useAxios() {
       setIsLoading(false);
     }
   };
+  // const checkmethod = () =>{
 
+  // }
   useEffect(() => {
-    if (data) {
-      Swal.fire("Done", `Successful`, "success");
-      console.log(data);
+    if (method === "POST") {
+      if (data) {
+        Swal.fire("Done", `Successful`, "success");
+        console.log(data);
+      }
+      if (error) {
+        Swal.fire("Failed ", `${error.message}`, "error");
+      }
     }
-    if (error) {
-      Swal.fire("Failed ", `${error.message}`, "error");
-    }
-  }, [data, error]);
+  }, [data, error, method]);
 
   return { data, error, isLoading, ApiRequest };
 }

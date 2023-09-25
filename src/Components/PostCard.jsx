@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAxios } from "../utils/ApiHook";
 
 const PostCard = () => {
+  const { data, error, isLoading, ApiRequest } = useAxios();
+  useEffect(() => {
+    ApiRequest("/post", "GET");
+  },[]);
+  console.log(data);
   const [showLikeComments, setShowLikeComments] = useState(false);
 
-  // Sample post data (you can replace this with actual data)
   const samplePosts = [
     {
       id: 1,

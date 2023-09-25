@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useAxios } from "../Services/ApiHook";
+import { useAxios } from "../utils/ApiHook";
 
 import {
   Button,
@@ -8,52 +8,65 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Avatar,
 } from "@material-tailwind/react";
-const CreatePostCard = () => {
-  const { data, error, isLoading, ApiRequest } = useAxios();
+import Loading from "./Loading";
+import { Context } from "../utils/Context";
+import { Link } from "react-router-dom";
 
-  const [openAdd, setOpenAdd] = useState(false);
-  const [media, setmedia] = useState([]);
-  const [title, setTitle] = useState("");
+const CreatePostCard = () => {
+  const { user } = useContext(Context);
+  const { data, error, isLoading, ApiRequest } = useAxios();
+  console.log(user);
+
+  const initialState = {
+    title: "",
+    media: [],
+  };
+  const [post, setPost] = useState(initialState);
   const [dragging, setDragging] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
 
   const handleDrop = (e) => {
     e.preventDefault();
-    const newmedia = [...media];
+    const newMedia = [...post.media];
     for (let i = 0; i < e.dataTransfer.files.length; i++) {
-      newmedia.push(e.dataTransfer.files[i]);
+      newMedia.push(e.dataTransfer.files[i]);
     }
-    setmedia(newmedia);
+    setPost({ ...post, media: newMedia });
     setDragging(false);
   };
 
   const handleFileInputChange = (e) => {
-    const newmedia = [...media];
+    const newMedia = [...post.media];
     for (let i = 0; i < e.target.files.length; i++) {
-      newmedia.push(e.target.files[i]);
+      newMedia.push(e.target.files[i]);
     }
-    setmedia(newmedia);
+    setPost({ ...post, media: newMedia });
   };
 
   const handleDelete = (index) => {
-    const newmedia = [...media];
-    newmedia.splice(index, 1);
-    setmedia(newmedia);
+    const newMedia = [...post.media];
+    newMedia.splice(index, 1);
+    setPost({ ...post, media: newMedia });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", title);
-    for (let i = 0; i < media.length; i++) {
-      formData.append("media", media[i]);
+    formData.append("title", post.title);
+
+    for (let i = 0; i < post.media.length; i++) {
+      formData.append("media", post.media[i]);
     }
+
     ApiRequest("/post/create", "POST", formData);
   };
 
   useEffect(() => {
     if (data) {
       setOpenAdd(false);
+      setPost(initialState);
     }
     if (error) {
       setOpenAdd(false);
@@ -63,11 +76,14 @@ const CreatePostCard = () => {
     <>
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">
         <div className="flex items-center space-x-4">
-          <img src="" alt="Your Profile" className="w-12 h-12 rounded-full" />
+          <Link to={`/profile/${user?._id}`}>
+            <Avatar src={user?.profile_pic} alt={user?.firstname} />
+          </Link>
 
           <input
             type="text"
-            value={title}
+            value={post.title}
+            onChange={(e) => setPost({ ...post, title: e.target.value })}
             placeholder="What's on your mind?"
             className="flex-1 p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
             onClick={() => setOpenAdd(true)}
@@ -95,69 +111,79 @@ const CreatePostCard = () => {
         <form onSubmit={handleSubmit}>
           <DialogHeader>Create Post</DialogHeader>
           <DialogBody divider>
-            <div>
-              <textarea
-                // type="textarea"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-                placeholder="What's on your mind?"
-                className="w-full h-32 text-black p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
-                onClick={() => setOpenAdd(true)}
-              />
-              <div
-                htmlFor="fileInput"
-                className={`border-2 border-dashed rounded-lg p-4 ${
-                  dragging ? "border-blue-400" : "border-gray-300"
-                }`}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setDragging(true);
-                }}
-                onDragLeave={() => setDragging(false)}
-                onDrop={handleDrop}
-              >
-                <label
+            {isLoading ? (
+              <div>
+                <Loading />
+              </div>
+            ) : (
+              <div>
+                <textarea
+                  onChange={(e) => setPost({ ...post, title: e.target.value })}
+                  value={post.title}
+                  placeholder="What's on your mind?"
+                  className="w-full h-32 text-black p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
+                  onClick={() => setOpenAdd(true)}
+                />
+                <div
                   htmlFor="fileInput"
-                  className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700 mt-2 block text-center"
+                  className={`border-2 border-dashed rounded-lg p-4 ${
+                    dragging ? "border-blue-400" : "border-gray-300"
+                  }`}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setDragging(true);
+                  }}
+                  onDragLeave={() => setDragging(false)}
+                  onDrop={handleDrop}
                 >
-                  <p className="text-center text-gray-400">
-                    Drag & Drop media Here
-                  </p>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleFileInputChange}
-                    className="hidden"
-                    id="fileInput"
-                  />
-                </label>
-                <div className="flex flex-wrap items-start justify-start">
-                  {media.map((image, index) => (
-                    <div
-                      key={index}
-                      className="mt-4 flex flex-col items-center"
-                    >
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt="Preview"
-                        className="h-20 w-20 object-cover rounded-lg shadow-md mr-4"
-                      />
-                      <button
-                        onClick={() => handleDelete(index)}
-                        className="text-red-600 hover:text-red-800"
+                  <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700 mt-2 block text-center"
+                  >
+                    <p className="text-center text-gray-400">
+                      Drag & Drop media Here
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleFileInputChange}
+                      className="hidden"
+                      id="fileInput"
+                    />
+                  </label>
+                  <div className="flex flex-wrap items-start justify-start">
+                    {post.media.map((image, index) => (
+                      <div
+                        key={index}
+                        className="mt-4 flex flex-col items-center"
                       >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
+                        <img
+                          src={URL.createObjectURL(image)}
+                          alt="Preview"
+                          className="h-20 w-20 object-cover rounded-lg shadow-md mr-4"
+                        />
+                        <button
+                          onClick={() => handleDelete(index)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </DialogBody>
           <DialogFooter>
-            <Button type="submit" variant="gradient" color="blue">
-              <span>post</span>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              variant="gradient"
+              color="blue"
+            >
+              post
             </Button>
           </DialogFooter>
         </form>

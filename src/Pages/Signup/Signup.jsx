@@ -6,7 +6,7 @@ import { Card, Button, Typography } from "@material-tailwind/react";
 
 import "./Signup.css";
 import Layout from "../../Container/Layout";
-import { useAxios } from "../../Services/ApiHook";
+import { useAxios } from "../../utils/ApiHook";
 
 const Signup = () => {
   const navigate = useNavigate();

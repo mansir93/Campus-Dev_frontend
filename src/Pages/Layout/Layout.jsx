@@ -7,10 +7,11 @@ import { Route, Routes } from "react-router-dom";
 import FriendsPosts from "../FriendsPosts";
 import AllPosts from "../AllPosts";
 import UserNavbar from "../../Components/UserNavbar";
+import Profile from "../Profile";
 
 function Layout() {
   return (
-    <div className="w-full bg-gray-200 font-sans overflow-y-auto">
+    <div className="w-full bg-gray-300 font-sans overflow-y-auto">
       <UserNavbar />
 
       <div className="w-full mt-2 p-4 flex justify-center">

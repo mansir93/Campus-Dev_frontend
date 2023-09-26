@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 const UserNavbar = () => {
+
   const [isNavSticky, setIsNavSticky] = useState(false);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const UserNavbar = () => {
       <nav
         className={`${
           isNavSticky ? "fixed top-0 left-0 right-0" : ""
-        } bg-blue-500 p-4 text-white transition-all ease-in-out duration-500`}
+        } bg-blue-500 p-4 text-white transition-all ease-in-out duration-500 z-50`}
       >
         <div className="">
           <div className="flex justify-between items-center">

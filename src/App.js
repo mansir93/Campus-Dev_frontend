@@ -4,6 +4,8 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
+import 'react-photo-view/dist/react-photo-view.css';
+
 
 import "./App.css";
 import Layout from "./Pages/Layout/Layout";

@@ -18,7 +18,7 @@ function Layout() {
         <aside className="hidden md:flex lg:flex flex-col lg:fixed top-20 left-0 w-1/4 p-4 overflow-y-auto">
           <LeftSidebar />
         </aside>
-        <main className="w-full lg:w-1/2 mx-auto px-4">
+        <main className="w-full lg:w-1/2 mx-auto px-4 flex justify-center">
           <Routes>
             <Route path="/" element={<FriendsPosts />} />
             <Route path="/explore" element={<AllPosts />} />

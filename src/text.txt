@@ -1,196 +1,33 @@
-import React, { useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { useAxios } from "../Services/ApiHook.js";
-import TopLoadingBar from "./TopLoadingBar";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
 
-// const { useAxios } = "../Services/ApiHook.js";
+          {/* Foldable Like and Comments section */}
+          <div className="mt-4">
+            <button
+              className="text-blue-500 hover:underline"
+              onClick={() => setShowLikeComments(!showLikeComments)}
+            >
+              {showLikeComments ? "Hide" : "View"} Likes and Comments
+            </button>
+            {showLikeComments && (
+              <div>
+                {/* Like Section */}
+                <div className="mt-2">
+                  <span className="font-semibold">Likes:</span> John Doe, Jane
+                  Smith, and 15 others
+                </div>
 
-const CreatePostCard = () => {
-  const navigate = useNavigate();
-  const { res, error, isLoading, axiosRequest } = useAxios();
-
-  const initialState = {
-    title: "",
-    media: [],
-  };
-  const [post, setPost] = useState(initialState);
-  const [openAdd, setOpenAdd] = useState(false);
-  const [dragging, setDragging] = useState(false);
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const newmedia = [...post.media];
-    for (let i = 0; i < e.dataTransfer.files.length; i++) {
-      newmedia.push(e.dataTransfer.files[i]);
-    }
-    setPost({ ...post, media: newmedia });
-    setDragging(false);
-  };
-
-  const handleFileInputChange = (e) => {
-    const newmedia = [...post.media];
-    for (let i = 0; i < e.target.files.length; i++) {
-      newmedia.push(e.target.files[i]);
-    }
-    setPost({ ...post, media: newmedia });
-  };
-
-  const handleDelete = (index) => {
-    const newmedia = [...post.media];
-    newmedia.splice(index, 1);
-    setPost({ ...post, media: newmedia });
-  };
-  const HandleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(post);
-
-    const formData = new FormData();
-    formData.append("title", post.title);
-    for (let i = 0; i < post.media.length; i++) {
-      formData.append("media", post.media[i]);
-    }
-
-    for (let i = 0; i <= 98; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 20));
-    }
-
-    const { res, error, isLoading } = axiosRequest(
-      "/post/create",
-      "POST",
-      formData
-    );
-    if (res) {
-      console.log(res);
-      navigate("/home");
-      setOpenAdd(false);
-      Swal.fire("Post", `Post successful`, "success");
-    }
-    if (isLoading) {
-      return <div>"loading...." </div>;
-    }
-    if (error) {
-      console.log(error);
-      setOpenAdd(false);
-      Swal.fire(
-        "error",
-        `Post creation Failed ${error.response.data}`,
-        "error"
-      );
-    }
-  };
-  return (
-    <>
-      <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-        <div className="flex items-center space-x-4">
-          <img src="" alt="Your Profile" className="w-12 h-12 rounded-full" />
-
-          <input
-            type="text"
-            value={post.title}
-            placeholder="What's on your mind?"
-            className="flex-1 p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
-            onClick={() => setOpenAdd(true)}
-          />
-        </div>
-        <div className="mt-4 w-full flex items-center justify-evenly space-x-4">
-          <div className="flex items-center space-x-2">
-            <AiOutlinePlus />
-            <span>live</span>
-          </div>
-          <div
-            className="flex items-center space-x-2"
-            onClick={() => setOpenAdd(true)}
-          >
-            <AiOutlinePlus />
-            <span>Photo</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <AiOutlinePlus />
-            <span>Reels</span>
-          </div>
-        </div>
-      </div>
-      <Dialog size="xs" open={openAdd} handler={() => setOpenAdd(!openAdd)}>
-        <form onSubmit={HandleSubmit}>
-          <DialogHeader>Create Post</DialogHeader>
-          <DialogBody divider>
-            <div>
-              <textarea
-                onChange={(e) => setPost({ ...post, title: e.target.value })}
-                value={post.title}
-                placeholder="What's on your mind?"
-                className="w-full h-32 text-black p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
-                onClick={() => setOpenAdd(true)}
-              />
-              <div
-                htmlFor="fileInput"
-                className={`border-2 border-dashed rounded-lg p-4 ${
-                  dragging ? "border-blue-400" : "border-gray-300"
-                }`}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setDragging(true);
-                }}
-                onDragLeave={() => setDragging(false)}
-                onDrop={handleDrop}
-              >
-                <label
-                  htmlFor="fileInput"
-                  className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700 mt-2 block text-center"
-                >
-                  <p className="text-center text-gray-400">
-                    Drag & Drop media Here
-                  </p>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleFileInputChange}
-                    className="hidden"
-                    id="fileInput"
-                  />
-                </label>
-                <div className="flex flex-wrap items-start justify-start">
-                  {post.media.map((image, index) => (
-                    <div
-                      key={index}
-                      className="mt-4 flex flex-col items-center"
-                    >
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt="Preview"
-                        className="h-20 w-20 object-cover rounded-lg shadow-md mr-4"
-                      />
-                      <button
-                        onClick={() => handleDelete(index)}
-                        className="text-red-600 hover:text-red-800"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
+                {/* Comments Section */}
+                <div className="mt-2">
+                  <div className="bg-gray-200 p-2 rounded-md">
+                    <p>
+                      Comment 1: Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit.
+                    </p>
+                  </div>
+                  <div className="bg-gray-200 p-2 mt-2 rounded-md">
+                    <p>Comment 2: Another comment here.</p>
+                  </div>
+                  {/* Add more comments as needed */}
                 </div>
               </div>
-            </div>
-          </DialogBody>
-          <DialogFooter>
-            <Button type="submit" variant="gradient" color="blue">
-              <span>post</span>
-            </Button>
-          </DialogFooter>
-        </form>
-      </Dialog>
-    </>
-  );
-};
-
-export default CreatePostCard;
+            )}
+          </div>

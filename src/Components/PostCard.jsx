@@ -1,114 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { useAxios } from "../utils/ApiHook";
+import React, { useState } from "react";
+import dayjs from "dayjs";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
-const PostCard = () => {
-  const { data, error, isLoading, ApiRequest } = useAxios();
-  useEffect(() => {
-    ApiRequest("/post", "GET");
-  },[]);
-  console.log(data);
-  const [showLikeComments, setShowLikeComments] = useState(false);
+import relativeTime from "dayjs/plugin/relativeTime";
+import { Avatar } from "@material-tailwind/react";
 
-  const samplePosts = [
-    {
-      id: 1,
-      author: "Friend 1",
-      timestamp: "2 hours ago",
-      content:
-        "This is a sample post content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: 2,
-      author: "Friend 2",
-      timestamp: "5 hours ago",
-      content:
-        "Another sample post content. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      id: 2,
-      author: "Friend 2",
-      timestamp: "5 hours ago",
-      content:
-        "Another sample post content. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      id: 2,
-      author: "Friend 2",
-      timestamp: "5 hours ago",
-      content:
-        "Another sample post content. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      id: 2,
-      author: "Friend 2",
-      timestamp: "5 hours ago",
-      content:
-        "Another sample post content. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      id: 2,
-      author: "Friend 2",
-      timestamp: "5 hours ago",
-      content:
-        "Another sample post content. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      id: 2,
-      author: "Friend 2",
-      timestamp: "5 hours ago",
-      content:
-        "Another sample post content. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-  ];
+const PostCard = ({ posts }) => {
+  dayjs.extend(relativeTime);
+
+  console.log(posts);
 
   return (
-    <div>
-      {samplePosts.map((post) => (
-        <div key={post.id} className="bg-white p-4 rounded-lg shadow-md mb-6">
+    <div className="max-w- [800px]">
+      {posts?.map((post, index) => (
+        <div key={index} className="bg-white p-4 rounded-lg mb-6">
           <div className="flex items-center space-x-4">
-            <img
-              src={`friend${post.id}-profile-picture.jpg`}
-              alt={post.author}
-              className="w-12 h-12 rounded-full"
+            <Avatar
+              src={post?.user?.profile_pic}
+              alt={post?.user?.firstname}
             />
             <div>
-              <h2 className="font-semibold">{post.author}</h2>
-              <p className="text-gray-500">{post.timestamp}</p>
+              <h2 className="font-semibold">
+                {post?.user?.firstname + " " + post?.user?.lastname}
+              </h2>
+              <p className="text-gray-500">
+                {dayjs(post.createdAt)?.toNow(true)} ago
+              </p>
             </div>
           </div>
-          <p className="mt-4">{post.content}</p>
-
-          {/* Foldable Like and Comments section */}
-          <div className="mt-4">
-            <button
-              className="text-blue-500 hover:underline"
-              onClick={() => setShowLikeComments(!showLikeComments)}
-            >
-              {showLikeComments ? "Hide" : "View"} Likes and Comments
-            </button>
-            {showLikeComments && (
-              <div>
-                {/* Like Section */}
-                <div className="mt-2">
-                  <span className="font-semibold">Likes:</span> John Doe, Jane
-                  Smith, and 15 others
+          <div className="py-2  max-h-40">{post?.title}</div>
+          <div>
+            <PhotoProvider>
+              {post?.media?.slice(0, 1)?.map((item, index) => (
+                <div className="flex justify-center items-center">
+                  <PhotoView key={index} src={item?.url}>
+                    <img
+                      src={item?.url}
+                      alt={item?.public_id}
+                      className="rounded-lg w-full"
+                    />
+                  </PhotoView>
                 </div>
-
-                {/* Comments Section */}
-                <div className="mt-2">
-                  <div className="bg-gray-200 p-2 rounded-md">
-                    <p>
-                      Comment 1: Lorem ipsum dolor sit amet, consectetur
-                      adipiscing elit.
-                    </p>
-                  </div>
-                  <div className="bg-gray-200 p-2 mt-2 rounded-md">
-                    <p>Comment 2: Another comment here.</p>
-                  </div>
-                  {/* Add more comments as needed */}
-                </div>
+              ))}
+              <hr></hr>
+              <div className="flex justify-center items-center overflow-x-auto gap-4 p-4">
+                {post?.media?.length > 1 &&
+                  post?.media?.slice(1)?.map((item, index) => (
+                    <PhotoView key={index} src={item?.url}>
+                      <img
+                        src={item?.url}
+                        alt={item?.public_id}
+                        className="h-40 flex-auto rounded-lg"
+                      />
+                    </PhotoView>
+                  ))}
               </div>
-            )}
+            </PhotoProvider>
           </div>
         </div>
       ))}

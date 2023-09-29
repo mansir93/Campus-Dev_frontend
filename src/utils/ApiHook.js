@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCookie } from "./Cookie";
 import Swal from "sweetalert2";
 
 export function useAxios() {
+  const navigate = useNavigate();
   const token = getCookie("_auth");
 
   const config = {
@@ -39,6 +41,9 @@ export function useAxios() {
       }
     } catch (error) {
       setError(error.response.data);
+      if (!token) {
+        navigate("/home");
+      }
     } finally {
       setIsLoading(false);
     }

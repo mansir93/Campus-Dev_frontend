@@ -11,8 +11,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import CreatePostCard from "../Components/CreatePostCard";
-import PostCard from "../Components/PostCard";
+import FriendsPosts from "./FriendsPosts";
 
 const Profile = () => {
   const { data, isLoading, ApiRequest } = useAxios();
@@ -21,7 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     ApiRequest(`/user/${id}`, "GET");
-  }, []);
+  }, [id, ApiRequest]);
 
   useEffect(() => {
     if (data) {
@@ -133,8 +132,7 @@ const Profile = () => {
                 intro
               </div>
               <div className=" lg:w-3/5  md:w-2/3 py-4 rounded-lg">
-                <CreatePostCard />
-                <PostCard />
+                <FriendsPosts />
               </div>
             </div>
           </TabPanel>

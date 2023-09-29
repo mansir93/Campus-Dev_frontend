@@ -14,8 +14,8 @@ function App() {
     <div>
       {/* <Navbar /> */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home/*" element={<Layout />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/*" element={<Layout />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

@@ -74,7 +74,7 @@ const CreatePostCard = () => {
   }, [data, error]);
   return (
     <>
-      <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+      <div className="w-full bg-white p-4 rounded-lg shadow-md mb-6">
         <div className="flex items-center space-x-4">
           <Link to={`/profile/${user?._id}`}>
             <Avatar src={user?.profile_pic} alt={user?.firstname} />
@@ -85,6 +85,7 @@ const CreatePostCard = () => {
             value={post.title}
             onChange={(e) => setPost({ ...post, title: e.target.value })}
             placeholder="What's on your mind?"
+            style={{ whiteSpace: "pre" }}
             className="flex-1 p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
             onClick={() => setOpenAdd(true)}
           />
@@ -107,7 +108,7 @@ const CreatePostCard = () => {
           </div>
         </div>
       </div>
-      <Dialog size="xs" open={openAdd} handler={() => setOpenAdd(!openAdd)}>
+      <Dialog size="" open={openAdd} handler={() => setOpenAdd(!openAdd)}>
         <form onSubmit={handleSubmit}>
           <DialogHeader>Create Post</DialogHeader>
           <DialogBody divider>
@@ -121,6 +122,7 @@ const CreatePostCard = () => {
                   onChange={(e) => setPost({ ...post, title: e.target.value })}
                   value={post.title}
                   placeholder="What's on your mind?"
+                  style={{ whiteSpace: "pre" }}
                   className="w-full h-32 text-black p-2 border-gray-100 bg-gray-300 rounded-lg border-none outline-none"
                   onClick={() => setOpenAdd(true)}
                 />

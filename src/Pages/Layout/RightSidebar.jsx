@@ -6,6 +6,7 @@ const RightSidebar = () => {
       <h2 className="text-lg font-semibold">Right Sidebar</h2>
       <p>changes from Andy</p>
       <button>click me</button>
+      <h1>Andrew</h1>
     </div>
   );
 };

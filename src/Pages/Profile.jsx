@@ -20,7 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     ApiRequest(`/user/${id}`, "GET");
-  }, [id, ApiRequest]);
+  }, [id]);
 
   useEffect(() => {
     if (data) {

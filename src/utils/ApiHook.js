@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 export function useAxios() {
   const navigate = useNavigate();
-  const token = getCookie("_auth");
+  const token = getCookie("social_auth");
 
   const config = {
     headers: {
@@ -48,9 +48,7 @@ export function useAxios() {
       setIsLoading(false);
     }
   };
-  // const checkmethod = () =>{
 
-  // }
   useEffect(() => {
     if (method === "POST") {
       if (data) {

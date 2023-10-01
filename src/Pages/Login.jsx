@@ -26,7 +26,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (data) {
-      saveToCookie("_auth", data.token, 365);
+      saveToCookie("social_auth", data.token, 365);
       navigate("/");
       setProgress(100);
     }

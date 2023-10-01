@@ -8,9 +8,17 @@ import { CgMoreAlt } from "react-icons/cg";
 import { BiMessageDots } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
+// import { getCookie } from "../utils/Cookie";
 
 const UserNavbar = () => {
-
+  // const navigate = useNavigate();
+  // const token = getCookie("social_auth");
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate("/home");
+  //   }
+  // });
   const [isNavSticky, setIsNavSticky] = useState(false);
 
   useEffect(() => {
@@ -43,9 +51,7 @@ const UserNavbar = () => {
               </Link>
 
               <form>
-                <label
-                  className="mb -2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-                >
+                <label className="mb -2 text-sm font-medium text-gray-900 sr-only dark:text-white">
                   Search
                 </label>
                 <div className="hidden lg:block relative">
@@ -69,13 +75,13 @@ const UserNavbar = () => {
               </form>
             </div>
             <div className="hidden mr-20 md:flex lg:flex items-center justify-between gap-20 space-x-4">
-              <Link to="/home" className="hover:text-gray-300">
+              <Link to="/" className="hover:text-gray-300">
                 <AiTwotoneHome size={34} />
               </Link>
-              <Link to="/home" className="hover:text-gray-300">
+              <Link to="/" className="hover:text-gray-300">
                 <FaUsers size={34} />
               </Link>
-              <Link to="/home" className="hover:text-gray-300">
+              <Link to="/" className="hover:text-gray-300">
                 <AiFillMessage size={34} />
               </Link>
             </div>

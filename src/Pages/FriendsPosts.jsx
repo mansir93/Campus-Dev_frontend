@@ -7,7 +7,7 @@ const FriendsPosts = () => {
   const { data, error, isLoading, ApiRequest } = useAxios();
   useEffect(() => {
     ApiRequest("/post", "GET");
-  }, [data, error, ApiRequest]);
+  }, [data, error]);
   return (
     <div className="flex flex-col justify-center w-full max-w-[700px]">
       <CreatePostCard />

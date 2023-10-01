@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,7 +10,11 @@ import { GetDominantColor } from "../utils/utils";
 import PostLikesAndComments from "./PostLikesAndComments";
 
 const PostCard = ({ posts }) => {
-  dayjs.extend(relativeTime);
+  const [showAllpics, setShowAllpics] = useState(false);
+
+  useEffect(() => {
+    dayjs.extend(relativeTime);
+  });
   console.log(posts);
 
   return (
@@ -52,20 +56,20 @@ const PostCard = ({ posts }) => {
                   </PhotoView>
                 </div>
               ))}
+              {showAllpics ? (
+                <button onClick={()=setShowAllpics(!showAllpics)}>All Images </button>
+              ) : (
+                <button>less Images</button>
+              )}
               <div className="w-full flex justify -between items- center overflow-x-auto gap-4 rounded-b-lg bg-gray-50 p-2">
                 {post?.media?.length > 1 &&
                   post?.media?.slice(1)?.map((item, index) => (
                     <PhotoView key={index} src={item?.url}>
-                      {/* <div
-                        className=" rounded-lg p-1"
-                        style={{ backgroundColor: GetDominantColor(item?.url) }}
-                      > */}
                       <img
                         src={item?.url}
                         alt={item?.public_id}
                         className="h-40 rounded-lg "
                       />
-                      {/* </div> */}
                     </PhotoView>
                   ))}
               </div>

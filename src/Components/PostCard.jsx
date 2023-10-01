@@ -6,7 +6,6 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 
 import { Avatar } from "@material-tailwind/react";
 import Loading from "./Loading";
-// import { GetDominantColor } from "../utils/utils";
 import { useDominantColor } from "../utils/utils";
 import PostLikesAndComments from "./PostLikesAndComments";
 
@@ -56,7 +55,7 @@ const PostCard = ({ posts }) => {
                 </p>
               </div>
             </div>
-            <div className="px-4  max-h-40">{post?.title}</div>
+            <div className="px-4 max-h-40">{post?.title}</div>
             <PhotoProvider>
               {post?.media?.slice(0, 1)?.map((item, index) => (
                 <MediaItem item={item} key={index} />
@@ -66,14 +65,14 @@ const PostCard = ({ posts }) => {
                   {showAllpics ? (
                     <button
                       onClick={() => setShowAllpics(!showAllpics)}
-                      className="p-4"
+                      className="p-1"
                     >
                       less Images
                     </button>
                   ) : (
                     <button
                       onClick={() => setShowAllpics(!showAllpics)}
-                      className="p-4"
+                      className="p-1"
                     >
                       All Images
                     </button>

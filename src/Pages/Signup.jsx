@@ -17,6 +17,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  // console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProgress(0);

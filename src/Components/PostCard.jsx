@@ -6,8 +6,24 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 
 import { Avatar } from "@material-tailwind/react";
 import Loading from "./Loading";
-import { GetDominantColor } from "../utils/utils";
+// import { GetDominantColor } from "../utils/utils";
+import { useDominantColor } from "../utils/utils";
 import PostLikesAndComments from "./PostLikesAndComments";
+
+//# component
+const MediaItem = ({ item }) => {
+  const dominantColor = useDominantColor(item?.url);
+  return (
+    <div
+      className="flex justify-center items-center w-full"
+      style={{ backgroundColor: dominantColor }}
+    >
+      <PhotoView>
+        <img src={item?.url} alt={item?.public_id} className="max-h-[500px]" />
+      </PhotoView>
+    </div>
+  );
+};
 
 const PostCard = ({ posts }) => {
   const [showAllpics, setShowAllpics] = useState(false);
@@ -43,26 +59,29 @@ const PostCard = ({ posts }) => {
             <div className="px-4  max-h-40">{post?.title}</div>
             <PhotoProvider>
               {post?.media?.slice(0, 1)?.map((item, index) => (
-                <div
-                  className="flex justify-center items-center w-full"
-                  style={{ backgroundColor: GetDominantColor(item?.url) }}
-                >
-                  <PhotoView key={index} src={item?.url}>
-                    <img
-                      src={item?.url}
-                      alt={item?.public_id}
-                      className="max-h-[500px]"
-                    />
-                  </PhotoView>
-                </div>
+                <MediaItem item={item} key={index} />
               ))}
-              {showAllpics ? (
-                <button onClick={()=setShowAllpics(!showAllpics)}>All Images </button>
-              ) : (
-                <button>less Images</button>
+              {post?.media?.length > 1 && (
+                <div className="px-4 text-gray-400">
+                  {showAllpics ? (
+                    <button
+                      onClick={() => setShowAllpics(!showAllpics)}
+                      className="p-4"
+                    >
+                      less Images
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setShowAllpics(!showAllpics)}
+                      className="p-4"
+                    >
+                      All Images
+                    </button>
+                  )}
+                </div>
               )}
               <div className="w-full flex justify -between items- center overflow-x-auto gap-4 rounded-b-lg bg-gray-50 p-2">
-                {post?.media?.length > 1 &&
+                {showAllpics &&
                   post?.media?.slice(1)?.map((item, index) => (
                     <PhotoView key={index} src={item?.url}>
                       <img

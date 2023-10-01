@@ -88,7 +88,7 @@ const PostCard = ({ posts }) => {
                         alt={item?.public_id}
                         className="h-40 rounded-lg "
                       />
-                    </PhotoView>
+                     </PhotoView>
                   ))}
               </div>
             </PhotoProvider>

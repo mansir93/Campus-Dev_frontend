@@ -24,7 +24,6 @@ const PostLikesAndComments = ({ post }) => {
   };
   return (
     <>
-      {/* likes and comments component */}
       <div className="w-full p-2">
         <div className="flex justify-between items-center px-4">
           <div>{post?.like?.length}likes</div>
@@ -62,7 +61,6 @@ const PostLikesAndComments = ({ post }) => {
                     </Link>
                     <div>
                       <p>
-                        {" "}
                         {item?.user?.firstname + " " + item?.user?.lastname}
                       </p>
                       <p>{item?.comment}</p>
@@ -93,7 +91,6 @@ const PostLikesAndComments = ({ post }) => {
         )}
         {/* comments */}
       </div>
-      {/* likes and comments component*/}
     </>
   );
 };

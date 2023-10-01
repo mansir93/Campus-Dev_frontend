@@ -5,9 +5,12 @@ import { useAxios } from "../utils/ApiHook";
 
 const FriendsPosts = () => {
   const { data, ApiRequest } = useAxios();
+
   useEffect(() => {
     ApiRequest("/post", "GET");
   });
+  // console.log(data);
+
   return (
     <div className="flex flex-col justify-center w-full max-w-[700px]">
       <CreatePostCard />

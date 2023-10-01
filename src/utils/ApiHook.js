@@ -42,7 +42,7 @@ export function useAxios() {
     } catch (error) {
       setError(error.response.data);
       if (!token) {
-        navigate("/home");
+        navigate("/login");
       }
     } finally {
       setIsLoading(false);

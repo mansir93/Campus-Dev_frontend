@@ -23,7 +23,7 @@ const Navbar= () => {
 
   const navList = (
     <div className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography as="a" color="blue" className="p-1 font-normal">
+      <Typography as="a" className="p-1 font-normal text-blue-800">
         <NavLink to="/" className="flex items-center gap-2 p-1 font-bold">
           <FaHome /> Home
         </NavLink>
@@ -39,7 +39,7 @@ const Navbar= () => {
           <Typography
             color="blue"
             className="mr-4 cursor-pointer py-1.5 font-extrabold text-2xl"
-          ><Link to="/">
+          ><Link to="/home">
           
             CAMPUS-DEV
           </Link>
@@ -59,7 +59,7 @@ const Navbar= () => {
             onClick={() => setOpenNav(!openNav)}
           >
             {" "}
-            {openNav ? <GrClose size={24} className="text-blue-500" /> : <FaBars size={24}  className="text-blue-500"/>}
+            {openNav ? <GrClose size={24} className="text-blue-800" /> : <FaBars size={24}  className="text-blue-800"/>}
           </IconButton>
         </div>
         <Collapse open={openNav}>

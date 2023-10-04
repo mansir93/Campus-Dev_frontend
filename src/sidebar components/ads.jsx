@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const ads = () => {
+const Ads = () => {
   return (
-    <div>ads</div>
-  )
-}
+       <div>Ads</div>
+  );
+};
 
-export default ads;
+export default Ads;

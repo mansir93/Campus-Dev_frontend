@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-const Navbar= () => {
+const Navbar = () => {
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -28,7 +28,6 @@ const Navbar= () => {
           <FaHome /> Home
         </NavLink>
       </Typography>
-
     </div>
   );
 
@@ -39,19 +38,18 @@ const Navbar= () => {
           <Typography
             color="blue"
             className="mr-4 cursor-pointer py-1.5 font-extrabold text-2xl"
-          ><Link to="/">
-          
-            CAMPUS-DEV
-          </Link>
+          >
+            <Link to="/">CAMPUS-DEV</Link>
           </Typography>
           <div className="hidden lg:block">{navList}</div>
-          <Button
-            variant="gradient"
-            size="sm"
-            className="hidden lg:inline-block"
-          >
-            <span>Account</span>
-          </Button>
+          <div className="hidden lg:flex gap-4  ">
+            <Button variant="gradient" size="sm">
+              <span>Register</span>
+            </Button>
+            <Button variant="gradient" size="sm">
+              <span>Login</span>
+            </Button>
+          </div>
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -59,14 +57,21 @@ const Navbar= () => {
             onClick={() => setOpenNav(!openNav)}
           >
             {" "}
-            {openNav ? <GrClose size={24} className="text-blue-500" /> : <FaBars size={24}  className="text-blue-500"/>}
+            {openNav ? (
+              <GrClose size={24} className="text-blue-500" />
+            ) : (
+              <FaBars size={24} className="text-blue-500" />
+            )}
           </IconButton>
         </div>
         <Collapse open={openNav}>
           <div className="container mx-auto">
             {navList}
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Account</span>
+              <span>Register</span>
+            </Button>
+            <Button variant="gradient" size="sm" fullWidth className="mb-2">
+              <span>Login</span>
             </Button>
           </div>
         </Collapse>

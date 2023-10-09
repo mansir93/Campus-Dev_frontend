@@ -36,109 +36,57 @@ const Login = () => {
     <>
       <Layout>
         <TopLoadingBar loading={isLoading} progress={progress} />
-        <section className="mt-20 lg:m-auto gradient-form h-screen w-full">
-          <div className="flex h-full items-center justify-center p-6 ">
-            <div className="flex flex-col bg-transparent border border-gray-200 rounded-lg shadow md:flex-row  bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-              <div className="mb-12">
-                <div className="flex justify-start items-start p-8">
-                  <h3 className="font-bold text-gray-700 text-xl">
-                    Campus Dev
-                  </h3>
-                </div>
-                <Card
-                  color="transparent"
-                  shadow={false}
-                  className="px-16 py-4 text-center"
-                >
-                  <div className="flex flex-col justify-start items-start">
-                    <Typography variant="h4" color="blue-gray">
-                      Login
-                    </Typography>
-                    <Typography color="gray" className="mt-1 font-normal">
-                      Into Your student Hub.
-                    </Typography>
-                  </div>
-                  <form
-                    onSubmit={handleSubmit}
-                    className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-                  >
-                    <div className="mb-4 flex flex-col">
-                      <div className="mb-6">
-                        <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              email: e.target.value,
-                            })
-                          }
-                          required
-                          placeholder="john@example.com"
-                          className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
-                      </div>
-                      <div className="mb-6">
-                        <label className="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                          Password
-                        </label>
-                        <input
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              password: e.target.value,
-                            })
-                          }
-                          type="password"
-                          required
-                          placeholder="  ********* "
-                          className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
-                      </div>
-                      <div className="mb-6 flex justify-between items-center">
-                        <span>
-                          <Checkbox label="Remember me" />
-                        </span>
-                        <p>forgotten password?</p>
-                      </div>
-                    </div>
+        <div className="flex w-full p-0">
+        <div className="m-0 h-screen w-full bg-blue-800 text-white text-7xl hidden lg:flex items-center justify-center lg:w-1/2">
+          Your Image Here
+        </div>
 
-                    <Button
-                      type="submit"
-                      className="mt-6 w-full text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full"
-                      fullWidth
-                    >
-                      Login
-                    </Button>
-                    <div className="py-6">
-                      <div className="flex gap-3">
-                        <p>Not registered yet? </p>
-                        <Link to="/signup" className="text-blue-500">
-                          Create and Account
-                        </Link>
-                      </div>
-                    </div>
-                  </form>
-                </Card>
-              </div>
-
-              <div className="lg:w-1/2  flex flex-col justify-center p-4 leading-normal bg-blue-500">
-                {/* <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5> */}
-                {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Access a suite of powerful
-                <br /> student tools, including study
-                <br />
-                resources, productivity apps,
-                <br /> and tutoring services, designed
-                <br />
-                to enhance your academic success.{" "}
-              </p> */}
-              </div>
+        <div className="m-0 h-screen w-full bg-gray-50 flex items-center justify-center lg:w-1/2">
+          <form onSubmit={handleSubmit}
+          className="w-3/4">
+            <h3 className="font-bold text-gray-700 text-2xl mt-2 text-left block mb-6">
+              Log In
+            </h3>
+            <div className="mb-6 block">
+              <label className="text-left block mb-2 text-sm font-medium text-slate-300 dark:text-white">
+                Email
+              </label>
+              <input type="email" onChange={(e) => setFormData({
+                ...formData,
+                email: e.target.value,
+              })
+              } placeholder="student@email.com" className="bg-transparent border border-gray-700 text-gray-800 text-sm md:text-md rounded-md outline-blue-800 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white: dark:focus:outline-blue-800 transition-all" />
             </div>
-          </div>
-        </section>
+            <div className="mb-6 block">
+              <label className="text-left block mb-2 text-sm font-medium text-slate-300 dark:text-white">
+                Password
+              </label>
+              <input type="password" onChange={(e) => setFormData({
+                ...formData,
+                password: e.target.value,
+              })
+              } required placeholder="Enter password" className="bg-transparent border border-gray-700 text-gray-900 text-sm md:text-md rounded-md outline-blue-800 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white: dark:focus:outline-blue-800 transition-all" />
+            </div>
+
+            <div className="mx-0 block w-full">
+              <span>
+                <Checkbox className="ml-0" label="Remember me" />
+              </span>
+            </div>
+            <div className="text-right mb-2">
+              Forgot Password?
+            </div>
+            <Button type="submit" className="mt-2.5 w-full text-white bg-blue-800 hover:bg-blue-900 p-2 rounded-md lg:w-fit block lg:px-16 lg:py-3 lg:mx-auto font-semibold text-md cursor-pointer transition-all capitalize hover:ring-0 shadow-md">
+              Log In
+            </Button>
+
+            <div className="text-md text-gray-700 font-medium mt-3">
+              Not registered yet?
+              <Link to="/signup" className="text-blue-800 hover:text-blue-900 transition-all"> Create an account</Link>
+            </div>
+          </form>
+        </div>
+        </div>
       </Layout>
     </>
   );

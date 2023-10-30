@@ -12,8 +12,8 @@ const Hero = () => {
           <h3 className="pt-4 text-white">Empowering Tertiary Education in Ghana</h3>
           <p class="pt-4 text-xl font-medium text-white">Your all-in-one platform for studying, connecting, and finding career opportunities</p>
           <div className="mt-6 mx-auto">
-            <Link to="/signup" className="rounded-md text-base font-semibold bg-blue-500 text-white shadow-md capitalize hover:bg-blue-600 px-4 py-3 mr-3 box-border">Join Us</Link>
-            <Link to="#" className="rounded-md text-base font-semibold text-blue-500 shadow-md capitalize hover:bg-gray-300 px-4 py-3 bg-gray-50">
+            <Link to="/signup" className="rounded-md text-base font-semibold bg-blue-500 text-white shadow-md capitalize hover:bg-blue-600 px-4 py-3 mr-3 box-border transition-all">Join Us</Link>
+            <Link to="#" className="rounded-md text-base font-semibold text-blue-500 shadow-md capitalize hover:bg-gray-300 px-4 py-3 bg-gray-50 transition-all">
               Learn More <ChevronRightIcon />
             </Link>
           </div>

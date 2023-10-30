@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="w-full p-4 shadow bg-white z-20 top-0 left-0 fixed ">
+      <div className="w-full p-4 shadow bg-white z-20 top-0 left-0 fixed items-center">
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
           <Typography
             color="blue"
@@ -44,10 +44,10 @@ const Navbar = () => {
           <div className="hidden lg:block">{navList}</div>
           <div className="hidden lg:flex gap-4  ">
             <Button variant="gradient" size="sm">
-              <span>Register</span>
+              <span>Create Account</span>
             </Button>
             <Button variant="gradient" size="sm">
-              <span>Login</span>
+              <span>Sign in</span>
             </Button>
           </div>
           <IconButton
@@ -68,10 +68,10 @@ const Navbar = () => {
           <div className="container mx-auto">
             {navList}
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
-              <span>Register</span>
+              <span>Create Account</span>
             </Button>
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
-              <span>Login</span>
+              <span>Sign in</span>
             </Button>
           </div>
         </Collapse>
